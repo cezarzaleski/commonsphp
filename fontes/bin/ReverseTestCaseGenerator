@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+/**
+ * ReverseTestCaseGenerator
+ *
+ *
+ * @package   Commons\Util\Test
+ * @author    MEC
+ * @since     1.0.0
+ */
+
+ini_set('mbstring.func_overload', 0);
+ini_set('mbstring.internal_encoding', NULL);
+
+$loaded = false;
+
+foreach (array(__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        require $file;
+        $loaded = true;
+        break;
+    }
+}
+
+if (!$loaded) {
+    die(
+        'Voce precisa atualizar as referencias do projeto utilizando os seguintes comandos:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+}
+
+require __DIR__.'/../library/Commons/Util/Test/ReverseTestCaseGenerator.php';

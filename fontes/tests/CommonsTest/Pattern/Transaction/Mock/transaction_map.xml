@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<query id="s_fruit">
+        <![CDATA[
+            select * from fruit
+        ]]>
+	</query>
+	<query id="i_fruit">
+        <![CDATA[
+            insert into fruit values(:value)
+        ]]>
+	</query>
+</map>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpdox xmlns="http://xml.phpdox.net/config" silent="false">
+    <project name="Biblioteca CommonsPHP" source="${basedir}/library" workdir="${basedir}/build/phpdox">
+        <collector publiconly="false" backend="parser" />
+        <generator output="${basedir}/build">
+            <build engine="html" enabled="true" output="api">
+                <template dir="${phpDox.home}/templates/html" />
+                <file extension="html" />
+            </build>
+            <enrich base="${basedir}/build/logs">
+                <source type="build" />
+                <source type="phploc" />
+             </enrich>
+        </generator>
+    </project>
+</phpdox>

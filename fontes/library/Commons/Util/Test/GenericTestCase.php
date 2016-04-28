@@ -1,0 +1,74 @@
+<?php
+
+namespace Commons\Util\Test;
+
+class GenericTestCase extends \PHPUnit_Framework_TestCase
+{
+
+    public function assertPublicInterface($class, $method, $expectedResult, $params = array())
+    {
+        if (! $params) {
+            $params = array();
+        }
+        // cria a classe
+        $clazzInstance = $this->createClassInstance($class);
+        $reflector = new \ReflectionClass($clazzInstance);
+
+        // invoca o método
+        $methodInvoker = $reflector->getMethod($method);
+        if ($methodInvoker->isPublic()) {
+            $return = null;
+            try {
+                $return = $methodInvoker->invokeArgs($clazzInstance, $params);
+                if (is_subclass_of($expectedResult, 'Commons\Util\Test\ResultAsserter')) {
+                    $expectedResult->assertResult($this, $clazzInstance, $return);
+                } else {
+                    $this->assertEquals($expectedResult, $return);
+                }
+            } catch (\PHPUnit_Framework_Exception $phpunitException) {
+                throw $phpunitException;
+            } catch (\Exception $e) {
+                if (is_subclass_of($expectedResult, '\Exception') ||
+                    (is_object($expectedResult) && get_class($expectedResult) === 'Exception')) {
+                    $this->assertInstanceOf(get_class($expectedResult), $e);
+                    if ($expectedResult->getMessage()) {
+                        $this->assertEquals($expectedResult->getMessage(), $e->getMessage());
+                    }
+                } else {
+                    $this->fail($e->getMessage());
+                }
+            }
+        } else {
+            throw new \ReflectionException('O método ' . $method . ' da classe ' . $class . ' não é público.');
+        }
+    }
+
+    /**
+     * Cria uma instância da classe.
+     * O método espera que exista um construtor padrão na classe,
+     * caso contrário busca por um método que cria a instância
+     * chamado de 'getInstance';
+     *
+     * @param mixed $class classe ou objeto
+     * (o método corrige $class para classe se for objeto)
+     * @return object
+     */
+    protected function createClassInstance(&$class)
+    {
+        $clazzInstance = $class;
+        if (! is_object($clazzInstance)) {
+            $reflector = new \ReflectionClass($clazzInstance);
+            $constructor = $reflector->getConstructor();
+            if (($constructor !== null && $constructor->isPublic()) || $reflector->isInstantiable()) {
+                $clazzInstance = new $class();
+            } else {
+                $invoker = $reflector->getMethod('getInstance');
+                $clazzInstance = $invoker->invoke(null);
+            }
+        } else {
+            $class = \get_class($class);
+        }
+
+        return $clazzInstance;
+    }
+}

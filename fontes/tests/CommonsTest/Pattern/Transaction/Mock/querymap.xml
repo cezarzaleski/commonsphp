@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<map>
+
+	<!-- TESTE QUERY MAP -->
+
+	<query id="teste.findAll" lob="false" ttlmax="0" ttlmin="0"><![CDATA[
+        SELECT
+            *
+       FROM TESTE
+       WHERE
+            ID_TESTE = :idTeste
+    ]]>
+	</query>
+</map>
