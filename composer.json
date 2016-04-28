@@ -7,7 +7,7 @@
 		"utilitarios",
 		"padroes"
 	],
-	"license": "proprietary",
+	"license": "MIT",
 	"config":{
 		"secure-http": false
 	},
