@@ -1,5 +1,5 @@
 {
-	"name" : "cezarzaleski/commonsphp",
+	"name" : "library/commonsphp",
 	"description" : "Biblioteca com utilitários comuns e padrões.",
 	"type": "library",
 	"keywords": [
