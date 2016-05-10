@@ -4,9 +4,9 @@ namespace CommonsTest\Pattern\Service;
 
 use Zend\Di\ServiceLocator;
 use Commons\Pattern\Service\Impl\ZendServiceLookupManager;
-use Zend\Log\PsrLoggerAdapter;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Noop;
+use Commons\Pattern\Log\DefaultZendPsrLoggerAdapter;
 
 class CoreServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,10 @@ class CoreServiceTest extends \PHPUnit_Framework_TestCase
         $locator = new ServiceLocator();
         $logger = new Logger();
         $logger->addWriter(new Noop());
-        self::$service = new ExemploService(new ZendServiceLookupManager($locator), new PsrLoggerAdapter($logger));
+        self::$service = new ExemploService(
+            new ZendServiceLookupManager($locator),
+            new DefaultZendPsrLoggerAdapter($logger)
+        );
         $locator->set('helloService', self::$service);
 
         self::assertEquals('Hello World.', self::$service->operacaoHelloWorld());

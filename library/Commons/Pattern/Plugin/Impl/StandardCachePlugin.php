@@ -2,45 +2,13 @@
 
 namespace Commons\Pattern\Plugin\Impl;
 
-use Commons\Pattern\Plugin\Impl\Cache as CachePlugin;
-use Commons\Pattern\Cache\Cache as CacheInterface;
-use Commons\Exception\InvalidArgumentException;
+use Commons\Pattern\Cache\Plugin\StandardCachePlugin as Standard;
 
 /**
  * Plugin para Cache padrão.
+ *
+ * @deprecated Será removido na versão 3.x deste componente.
  */
-class StandardCachePlugin extends CachePlugin
+class StandardCachePlugin extends Standard
 {
-
-    /**
-     * Construtor padrão.
-     *
-     * @param string $regex Regex com string de pesquisa para métodos passíveis de serem cacheados.
-     * @param \Commons\Pattern\Cache\Cache $cache
-     */
-    public function __construct($regex, $cache = null)
-    {
-        parent::__construct($regex);
-        if (!is_null($cache) && !($cache instanceof \Commons\Pattern\Cache\Cache)) {
-            throw new InvalidArgumentException("O cache deve ser do tipo \\Commons\\Pattern\\Cache\\Cache.");
-        }
-        $this->cache = $cache;
-    }
-
-    /**
-     * @param \Commons\Pattern\Cache\Cache $cache
-     */
-    public function setCache(CacheInterface $cache)
-    {
-        $this->cache = $cache;
-    }
-
-    /**
-     * @see \Commons\Pattern\Plugin\Impl\Cache::getCache()
-     * @return \Commons\Pattern\Cache\Cache
-     */
-    public function getCache()
-    {
-        return $this->cache;
-    }
 }

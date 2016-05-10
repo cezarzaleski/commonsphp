@@ -6,7 +6,7 @@ use Commons\Pattern\Plugin\Pluggable;
 use Commons\Pattern\Plugin\Dispatcher;
 use Commons\Pattern\Plugin\PluginInterceptor;
 use Commons\Pattern\Db\Plugin\QueryMapPlugin;
-use Commons\Pattern\Plugin\Impl\StandardCachePlugin;
+use Commons\Pattern\Cache\Plugin\StandardCachePlugin;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Commons\Pattern\Cache\Cache;

@@ -30,23 +30,13 @@ abstract class Selector extends Standard implements Plugin
         $this->regex = $regex;
     }
 
-    /* (non-PHPdoc)
-     * @see \Commons\Pattern\Plugin\Plugin::preDispatch()
+    /**
+     * Verifica se o contexto é válido para processamento.
+     *
+     * @param Context $context
+     * @return boolean
      */
-    public function preDispatch(Context $context)
-    {
-        // verifica se operação deve ser verificada
-        if (! \preg_match($this->regex, $context->getOperation())) {
-            return false;
-        }
-
-        return  true;
-    }
-
-    /* (non-PHPdoc)
-     * @see \Commons\Pattern\Plugin\Plugin::postDispatch()
-     */
-    public function postDispatch(Context $context)
+    public function isValidContext(Context $context)
     {
         // verifica se operação deve ser verificada
         if (! \preg_match($this->regex, $context->getOperation())) {

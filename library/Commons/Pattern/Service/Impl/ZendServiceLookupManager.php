@@ -4,7 +4,6 @@ namespace Commons\Pattern\Service\Impl;
 
 use Commons\Pattern\Di\LookupManager;
 use Commons\Pattern\Service\Service;
-use Zend\Di\LocatorInterface;
 
 /**
  * Representar a versão Zend do LookupManager para serviços.
@@ -12,11 +11,11 @@ use Zend\Di\LocatorInterface;
 class ZendServiceLookupManager extends AbstractLookupManager
 {
     /**
-     * @var LocatorInterface
+     * @var mixed
      */
     private $locator;
 
-    public function __construct(LocatorInterface $locator)
+    public function __construct($locator)
     {
         $this->locator = $locator;
     }

@@ -86,7 +86,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
         $cache = self::createCache();
 
-        $featureDb1 = new AdapterQueryMapFeature(Transaction::getStrategy(TransactionTest::DB1)->getAssigner(), $cache, __DIR__ . '/Mock');
+        $featureDb1 = new AdapterQueryMapFeature(Transaction::getStrategy(TransactionTest::DB1)->getAssigner(), $cache,  __DIR__ . '/Mock');
         Transaction::getStrategy(TransactionTest::DB1)->setFeature($featureDb1);
         $featureDb2 = new AdapterQueryMapFeature(Transaction::getStrategy(TransactionTest::DB2)->getAssigner(), $cache, __DIR__ . '/Mock');
         Transaction::getStrategy(TransactionTest::DB2)->setFeature($featureDb2);

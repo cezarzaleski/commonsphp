@@ -30,4 +30,4 @@ if (!$loaded) {
     );
 }
 
-require __DIR__ . '/../library/Commons/Util/Test/ReverseTestCaseGenerator.php';
+require __DIR__.'/../library/Commons/Util/Test/ReverseTestCaseGenerator.php';

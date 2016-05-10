@@ -46,7 +46,7 @@ class QueryMapPlugin extends Selector
     public function preDispatch(Context $context)
     {
         $this->current = null;
-        if (parent::preDispatch($context)) {
+        if ($this->isValidContext($context)) {
             $this->loadQueryMap($this->getQueryMapDirectory());
             $map = $this->map;
             $params = &$context->getParams();
@@ -189,7 +189,7 @@ class QueryMapPlugin extends Selector
      */
     public function postDispatch(Context $context)
     {
-        if (parent::postDispatch($context) && isset($this->map->{$this->current})) {
+        if ($this->isValidContext($context) && isset($this->map->{$this->current})) {
             $meta = $this->map->{$this->current};
             if (isset($meta->lob) && $meta->lob === "true") {
                 $return = $context->getReturn();

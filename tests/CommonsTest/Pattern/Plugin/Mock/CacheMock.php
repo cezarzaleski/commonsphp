@@ -1,7 +1,7 @@
 <?php
 namespace CommonsTest\Pattern\Plugin\Mock;
 
-use Commons\Pattern\Plugin\Impl\Cache;
+use Commons\Pattern\Cache\Plugin\Cache;
 use Zend\Cache\Storage\Adapter\FilesystemOptions;
 use Zend\Cache\Storage\Adapter\Filesystem;
 use Zend\Cache\Storage\Plugin\Serializer;

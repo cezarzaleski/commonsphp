@@ -4,7 +4,7 @@ namespace CommonsTest\Pattern\Plugin\Mock;
 
 use Commons\Pattern\Plugin\Pluggable;
 use Commons\Pattern\Plugin\Dispatcher;
-use Commons\Pattern\Plugin\Impl\StandardCachePlugin;
+use Commons\Pattern\Cache\Plugin\StandardCachePlugin;
 
 class InvalidCachePluggableClass implements Pluggable
 {
@@ -12,7 +12,7 @@ class InvalidCachePluggableClass implements Pluggable
 
     private $dispatcher;
 
-	/* (non-PHPdoc)
+    /* (non-PHPdoc)
      * @see \Commons\Pattern\Plugin\Pluggable::getPluginDispatcher()
      */
     public function getPluginDispatcher()
