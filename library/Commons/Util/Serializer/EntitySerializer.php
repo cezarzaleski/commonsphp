@@ -38,7 +38,7 @@ class EntitySerializer
      */
     protected $maxRecursionDepth = 0;
 
-    public function __construct($em)
+    public function __construct(EntityManager $em)
     {
         $this->setEntityManager($em);
     }

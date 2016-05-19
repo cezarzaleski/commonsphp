@@ -1,7 +1,9 @@
 <?php
+
 namespace CommonsTest\Util\Http;
 
 use Commons\Util\Http\HttpUtil;
+
 class HttpUtilTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetHeaders() {

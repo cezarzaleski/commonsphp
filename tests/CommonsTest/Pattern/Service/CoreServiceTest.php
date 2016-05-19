@@ -15,7 +15,7 @@ class CoreServiceTest extends \PHPUnit_Framework_TestCase
      */
     private static $service;
 
-    public function testService()
+    public static function setUpBeforeClass()
     {
         $locator = new ServiceLocator();
         $logger = new Logger();
@@ -23,9 +23,12 @@ class CoreServiceTest extends \PHPUnit_Framework_TestCase
         self::$service = new ExemploService(
             new ZendServiceLookupManager($locator),
             new DefaultZendPsrLoggerAdapter($logger)
-        );
+            );
         $locator->set('helloService', self::$service);
+    }
 
+    public function testService()
+    {
         self::assertEquals('Hello World.', self::$service->operacaoHelloWorld());
     }
 

@@ -109,7 +109,7 @@ final class Transaction
      * @param string $name
      *            caso não seja inserido o nome, retorna a instância da
      *            estratégia transacional do escopo de transação corrente.
-     * @return \Commons\Pattern\Transaction\TransactionStrategy a estratégia transacional.
+     * @return \Commons\Pattern\Transaction\TransactionStrategy
      */
     public static function getStrategy($name = true)
     {

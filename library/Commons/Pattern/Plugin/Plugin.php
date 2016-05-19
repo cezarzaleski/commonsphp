@@ -26,6 +26,23 @@ interface Plugin
     public function postDispatch(Context $context);
 
     /**
+     * Método que realiza operações na ocorrência de erro com o procedimento.
+     *
+     * Esse método deve ser responsável por relançar a exceção caso necessário.
+     * O relançamento da exceção poderá ser feito através de $context->rethrowException()
+     *
+     * @param \Commons\Pattern\Plugin\Context $context
+     */
+    public function errorDispatch(Context $context);
+
+    /**
+     * Método que realiza operações independente do resultado do procedimento.
+     *
+     * @param \Commons\Pattern\Plugin\Context $context
+     */
+    public function finallyDispatch(Context $context);
+
+    /**
      * Método que guarda a referência para o dispatcher.
      *
      * @param \Commons\Pattern\Plugin\Dispatcher $dispatcher

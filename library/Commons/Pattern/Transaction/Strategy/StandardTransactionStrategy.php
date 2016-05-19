@@ -1,4 +1,5 @@
 <?php
+
 namespace Commons\Pattern\Transaction\Strategy;
 
 use Commons\Pattern\Plugin\Pluggable;

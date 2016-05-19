@@ -33,6 +33,16 @@ final class Dispatcher implements Plugin
     }
 
     /**
+     * Verifica se um plugin existe.
+     *
+     * @param string $name
+     */
+    public function hasPlugin($name)
+    {
+        return isset($this->plugins[$name]);
+    }
+
+    /**
      *
      * @param string $name
      * @return \Commons\Pattern\Plugin\Plugin
@@ -60,12 +70,25 @@ final class Dispatcher implements Plugin
      */
     public function postDispatch(Context $context)
     {
-        foreach (\array_reverse($this->plugins) as $plugin) {
-            if ($context->isLocked()) {
-                break;
-            }
-            $plugin->postDispatch($context);
-        }
+        $this->postponeDispatch($context, 'postDispatch');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Commons\Pattern\Plugin\Plugin::errorDispatch()
+     */
+    public function errorDispatch(Context $context)
+    {
+        $this->postponeDispatch($context, 'errorDispatch');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Commons\Pattern\Plugin\Plugin::finallyDispatch()
+     */
+    public function finallyDispatch(Context $context)
+    {
+        $this->postponeDispatch($context, 'finallyDispatch');
     }
 
     /* (non-PHPdoc)
@@ -74,5 +97,20 @@ final class Dispatcher implements Plugin
     public function setDispatcher(Dispatcher $dispatcher)
     {
         throw new \BadMethodCallException('Unsupported operation exception. This class is itself a dispatcher.');
+    }
+
+    /**
+     * Realiza a chamada das ações do tipo $action posteriores a execução do método envolvido.
+     * @param Context $context
+     * @param string $action
+     */
+    private function postponeDispatch(Context $context, $action)
+    {
+        foreach (\array_reverse($this->plugins) as $plugin) {
+            if ($context->isLocked()) {
+                break;
+            }
+            $plugin->$action($context);
+        }
     }
 }

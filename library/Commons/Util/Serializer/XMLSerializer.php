@@ -5,19 +5,35 @@ namespace Commons\Util\Serializer;
 /**
  * Baseado em:
  * @link http://stackoverflow.com/questions/137021/php-object-as-xml-document
- * Implementado mecanismos para identificação de dependência cíclica.
+ * Implementado com mecanismos para identificação de dependência cíclica.
  */
 class XMLSerializer
 {
 
-    public static function generateValidXml($mixed, $blockName = 'component', $version = '1.0', $encoding = 'UTF-8')
-    {
+    const COMPONENT_NODE = 'component';
+
+    public static function generateValidXml(
+        $mixed,
+        $blockName = XMLSerializer::COMPONENT_NODE,
+        $version = '1.0',
+        $encoding = 'UTF-8'
+    ) {
+        if (!$version) {
+            $version = '1.0';
+        }
+        if (!$encoding) {
+            $encoding = 'UTF-8';
+        }
+
         return "<?xml version=\"$version\" encoding=\"$encoding\" ?>" .
             static::generateXmlStructure($mixed, $blockName);
     }
 
-    public static function generateXmlStructure($mixed, $blockName = 'component')
+    public static function generateXmlStructure($mixed, $blockName = XMLSerializer::COMPONENT_NODE)
     {
+        if (!$blockName) {
+            $blockName = XMLSerializer::COMPONENT_NODE;
+        }
         return '<' . $blockName . '>' . static::generateXml($mixed) . '</' . $blockName . '>';
     }
 

@@ -10,6 +10,25 @@ namespace Commons\Pattern\Plugin;
  */
 class Context
 {
+    /**
+     * Se o tipo da operação for método.
+     *
+     * @var integer
+     */
+    const OP_METHOD = 1;
+
+    /**
+     * Se o tipo da operação for propriedade.
+     *
+     * @var integer
+     */
+    const OP_PROPERTY = 2;
+
+    /**
+     *
+     * @var mixed
+     */
+    private $exception = null;
 
     /**
      *
@@ -37,6 +56,12 @@ class Context
 
     /**
      *
+     * @var integer
+     */
+    private $operationType;
+
+    /**
+     *
      * @var mixed
      */
     private $owner;
@@ -52,12 +77,18 @@ class Context
      * @param string $operation
      * @param array $params
      */
-    public function __construct($pluggable, $owner, $operation, array $params = array())
-    {
+    public function __construct(
+        $pluggable,
+        $owner,
+        $operation,
+        array $params = array(),
+        $operationType = Context::OP_METHOD
+    ) {
         $this->pluggable = $pluggable;
         $this->owner = $owner;
         $this->operation = $operation;
         $this->params = $params;
+        $this->operationType = $operationType;
     }
 
     /**
@@ -88,6 +119,15 @@ class Context
 
     /**
      *
+     * @return integer
+     */
+    public function getOperationType()
+    {
+        return $this->operationType;
+    }
+
+    /**
+     *
      * @return mixed
      */
     public function &getParams()
@@ -113,6 +153,36 @@ class Context
     {
         $this->result = $result;
         return $this;
+    }
+
+    /**
+     *
+     * @return \Exception
+     */
+    public function getException()
+    {
+        return $this->exception;
+    }
+
+    /**
+     *
+     * @param \Exception $result
+     * @return \Commons\Pattern\Plugin\Context Provê interface fluente.
+     */
+    public function setException($exception)
+    {
+        $this->exception = $exception;
+        return $this;
+    }
+
+    /**
+     * Relança a exceção capturada pelo contexto.
+     */
+    public function rethrowException()
+    {
+        if ($this->exception) {
+            throw $this->exception;
+        }
     }
 
     /**

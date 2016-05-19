@@ -30,6 +30,7 @@
     },
     "suggest": {
         "doctrine/orm": "Na versao[>=2.4.2], obrigatoria para utilizar a classe Commons/Pattern/Transaction/Strategy/EntityManagerTransactionStrategy e a classe de serializacao Commons/Util/Serializer/EntitySerializer.",
+        "doctrine/common": "Na versao[>=2.5.1], obrigatoria para utilização de anotações.",
         "zendframework/zend-di": "Na versao[2.*], obrigatoria para utilizar a classe Commons/Pattern/Di/ZendLookupManager.",
         "zendframework/zend-cache": "Na versao[2.*], obrigatoria para utilizar a classe Commons/Pattern/Cache/CacheZendAdapter.",
         "zendframework/zend-db": "Na versao[2.*], obrigatoria para utilizar os pacotes Commons/Pattern/Db e Commons/Pattern/Transaction.",
@@ -40,7 +41,7 @@
     },
     "require-dev" : {
         "sebastian/phpcpd": "2.*",
-        "phpunit/phpunit": "3.*",
+        "phpunit/phpunit": "~3",
         "phploc/phploc": "2.*",
         "theseer/phpdox":">=0.7.0",
         "phplint/phplint": ">=0.0.1",
@@ -49,7 +50,6 @@
         "pdepend/pdepend": "1.*",
         "squizlabs/php_codesniffer": "*",
         "wimg/php-compatibility": ">=5.5",
-        "simplyadmire/composer-plugins" : ">=1.0.0",
         "zendframework/zend-inputfilter": "2.*",
         "zendframework/zend-serializer": "2.*",
         "zendframework/zend-db": "2.*",
@@ -59,7 +59,8 @@
         "zendframework/zend-i18n": "2.*",
         "zendframework/zend-hydrator" : "2.*",
         "zendframework/zend-log" : "2.*",
-        "doctrine/orm": ">=2.4.2"
+        "doctrine/orm": ">=2.4.2",
+        "doctrine/common": ">=2.5.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -24,7 +24,12 @@ class GenericTestCaseTest extends GenericTestCase
     public function publicInterface()
     {
         return array(
-            // Busca data de alteração da Ies.
+            array(
+                'CommonsTest\Util\Test\ServiceSample',
+                '__construct',
+                null,
+                array()
+            ),
             array(
                 'CommonsTest\Util\Test\ServiceSample',
                 'sum',
@@ -64,13 +69,9 @@ class GenericTestCaseTest extends GenericTestCase
         ));
     }
 
-    /**
-     * @expectedException \ReflectionException
-     * @exceptedExceptionMessage Class does not exist
-     */
     public function testClassNotExists()
     {
-        $this->assertPublicInterface(null, null, null, null);
+        $this->assertPublicInterface(null, null, new \ReflectionException("Class  does not exist"), null);
     }
 
     /**
@@ -103,25 +104,17 @@ class GenericTestCaseTest extends GenericTestCase
         ));
     }
 
-    /**
-     * @expectedException \ReflectionException
-     * @expectedExceptionMessage Method sumThatDontExists does not exist
-     */
     public function testClassInstanceMethodNotExists()
     {
-        $this->assertPublicInterface(new ServiceSample(), 'sumThatDontExists', 3, array(
+        $this->assertPublicInterface(new ServiceSample(), 'sumThatDontExists', new \ReflectionException("Method sumThatDontExists does not exist"), array(
             1,
             2
         ));
     }
 
-    /**
-     * @expectedException \ReflectionException
-     * @expectedExceptionMessage O método privateSum da classe CommonsTest\Util\Test\ServiceSample não é público.
-     */
     public function testClassInstanceMethodNotPublic()
     {
-        $this->assertPublicInterface(new ServiceSample(), 'privateSum', 3, array(
+        $this->assertPublicInterface(new ServiceSample(), 'privateSum', new \ReflectionException("O método privateSum da classe CommonsTest\Util\Test\ServiceSample não é público."), array(
             1,
             2
         ));

@@ -7,39 +7,39 @@ class GenericTestCase extends \PHPUnit_Framework_TestCase
 
     public function assertPublicInterface($class, $method, $expectedResult, $params = array())
     {
-        if (! $params) {
-            $params = array();
-        }
-        // cria a classe
-        $clazzInstance = $this->createClassInstance($class);
-        $reflector = new \ReflectionClass($clazzInstance);
-
-        // invoca o método
-        $methodInvoker = $reflector->getMethod($method);
-        if ($methodInvoker->isPublic()) {
-            $return = null;
-            try {
-                $return = $methodInvoker->invokeArgs($clazzInstance, $params);
-                if (is_subclass_of($expectedResult, 'Commons\Util\Test\ResultAsserter')) {
-                    $expectedResult->assertResult($this, $clazzInstance, $return);
-                } else {
-                    $this->assertEquals($expectedResult, $return);
-                }
-            } catch (\PHPUnit_Framework_Exception $phpunitException) {
-                throw $phpunitException;
-            } catch (\Exception $e) {
-                if (is_subclass_of($expectedResult, '\Exception') ||
-                    (is_object($expectedResult) && get_class($expectedResult) === 'Exception')) {
-                    $this->assertInstanceOf(get_class($expectedResult), $e);
-                    if ($expectedResult->getMessage()) {
-                        $this->assertEquals($expectedResult->getMessage(), $e->getMessage());
-                    }
-                } else {
-                    $this->fail($e->getMessage());
-                }
+        try {
+            if (! $params) {
+                $params = array();
             }
-        } else {
-            throw new \ReflectionException('O método ' . $method . ' da classe ' . $class . ' não é público.');
+            // cria a classe
+            $clazzInstance = $this->createClassInstance($class, $method, $params);
+            $reflector = new \ReflectionClass($clazzInstance);
+
+            // invoca o método
+            $methodInvoker = $reflector->getMethod($method);
+            if ($methodInvoker->isPublic()) {
+                $return = null;
+                    $return = $methodInvoker->invokeArgs($clazzInstance, $params);
+                    if (is_subclass_of($expectedResult, 'Commons\Util\Test\ResultAsserter')) {
+                        $expectedResult->assertResult($this, $clazzInstance, $return);
+                    } else {
+                        $this->assertEquals($expectedResult, $return);
+                    }
+            } else {
+                throw new \ReflectionException('O método ' . $method . ' da classe ' . $class . ' não é público.');
+            }
+        } catch (\PHPUnit_Framework_Exception $phpunitException) {
+            throw $phpunitException;
+        } catch (\Exception $e) {
+            if (is_subclass_of($expectedResult, '\Exception') ||
+                (is_object($expectedResult) && get_class($expectedResult) === 'Exception')) {
+                $this->assertInstanceOf(get_class($expectedResult), $e);
+                if ($expectedResult->getMessage()) {
+                    $this->assertEquals($expectedResult->getMessage(), $e->getMessage());
+                }
+            } else {
+                $this->fail($e->getMessage());
+            }
         }
     }
 
@@ -53,14 +53,18 @@ class GenericTestCase extends \PHPUnit_Framework_TestCase
      * (o método corrige $class para classe se for objeto)
      * @return object
      */
-    protected function createClassInstance(&$class)
+    protected function createClassInstance(&$class, $method, $params)
     {
         $clazzInstance = $class;
         if (! is_object($clazzInstance)) {
             $reflector = new \ReflectionClass($clazzInstance);
             $constructor = $reflector->getConstructor();
             if (($constructor !== null && $constructor->isPublic()) || $reflector->isInstantiable()) {
-                $clazzInstance = new $class();
+                if ($method === '__construct') {
+                    $clazzInstance = $reflector->newInstanceArgs($params);
+                } else {
+                    $clazzInstance = new $class();
+                }
             } else {
                 $invoker = $reflector->getMethod('getInstance');
                 $clazzInstance = $invoker->invoke(null);

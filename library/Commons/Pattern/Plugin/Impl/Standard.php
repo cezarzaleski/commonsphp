@@ -50,4 +50,21 @@ abstract class Standard implements Plugin
         $params = serialize($context->getParams());
         return $prefix . '_' . sha1($operation . '_' . $params);
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Commons\Pattern\Plugin\Plugin::onErrorDispatch()
+     */
+    public function errorDispatch(Context $context)
+    {
+        $context->rethrowException();
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Commons\Pattern\Plugin\Plugin::finallyDispatch()
+     */
+    public function finallyDispatch(Context $context)
+    {
+    }
 }
