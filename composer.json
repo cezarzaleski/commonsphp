@@ -37,19 +37,12 @@
         "zendframework/zend-i18n": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Country/Brazil/Validator.",
         "zendframework/zend-inputfilter": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Util/Input.",
         "zendframework/zend-validator": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Country/Brazil/Validator.",
-        "zendframework/zend-serializer": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Util/Serializer."
+        "zendframework/zend-serializer": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Util/Serializer.",
+        "zendframework/zend-hydrator" : "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Pattern/Data/Impl.",
+        "zendframework/zend-paginator" : "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Pattern/Paginator/Impl."
     },
     "require-dev" : {
-        "sebastian/phpcpd": "2.*",
-        "phpunit/phpunit": "~3",
-        "phploc/phploc": "2.*",
-        "theseer/phpdox":">=0.7.0",
-        "phplint/phplint": ">=0.0.1",
-        "mayflower/php-codebrowser": "1.*",
-        "phpmd/phpmd": "1.*",
-        "pdepend/pdepend": "1.*",
-        "squizlabs/php_codesniffer": "*",
-        "wimg/php-compatibility": ">=5.5",
+        "mec/qualityphp": "^1",
         "zendframework/zend-inputfilter": "2.*",
         "zendframework/zend-serializer": "2.*",
         "zendframework/zend-db": "2.*",
@@ -59,6 +52,7 @@
         "zendframework/zend-i18n": "2.*",
         "zendframework/zend-hydrator" : "2.*",
         "zendframework/zend-log" : "2.*",
+        "zendframework/zend-paginator" : "2.*",
         "doctrine/orm": ">=2.4.2",
         "doctrine/common": ">=2.5.1"
     },

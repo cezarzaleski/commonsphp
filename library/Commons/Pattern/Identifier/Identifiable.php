@@ -3,24 +3,10 @@
 namespace Commons\Pattern\Identifier;
 
 /**
- *  Representa uma interface comum para identificação.
+ *  Representa uma interface comum para objetos identificáveis.
  *
- *  Não representa identificador único de objetos.
- *  É um mecanismo de chave substituta.
+ *  Pode ser utilizado como mecanismo de chave substituta.
  */
-interface Identifiable
+interface Identifiable extends Identifiability, Identification
 {
-    /**
-     * Recupera o identificador.
-     *
-     * @return mixed
-     */
-    public function getId();
-
-    /**
-     * Insere o identificador.
-     *
-     * @param mixed $id
-     */
-    public function setId($id);
 }

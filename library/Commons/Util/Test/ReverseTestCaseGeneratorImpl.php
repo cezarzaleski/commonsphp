@@ -55,7 +55,10 @@ USAGE;
                 $firstDir = \explode('\\', $class)[0];
                 $testClassName = $firstDir.'Test'. \substr($class, \strlen($firstDir));
                 $testClassName .= 'Test';
-                $testClassFileName = $testFolder.'\\'. $testClassName;
+                $testClassFileName =
+                    $testFolder.
+                    DIRECTORY_SEPARATOR.
+                    \str_replace('\\', DIRECTORY_SEPARATOR, $testClassName);
                 if (!\file_exists(\dirname($testClassFileName)) && !\mkdir(\dirname($testClassFileName), 0777, true)) {
                     continue;
                 }
@@ -74,8 +77,9 @@ USAGE;
 
     protected function generateTestContent($class, $testClassName)
     {
-        $namespace = \dirname($testClassName);
-        $className = \str_replace($namespace.'\\', '', $testClassName);
+        $elements = \explode('\\', $testClassName);
+        $className = \array_pop($elements);
+        $namespace = \implode('\\', $elements);
         $methods   = $this->generateTestMethods($class);
         return <<<"CLASS"
 <?php

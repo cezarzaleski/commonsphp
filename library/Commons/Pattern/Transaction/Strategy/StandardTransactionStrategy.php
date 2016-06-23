@@ -3,17 +3,17 @@
 namespace Commons\Pattern\Transaction\Strategy;
 
 use Commons\Pattern\Plugin\Pluggable;
+use Commons\Pattern\Identifier\TNameable;
 
 /**
  * Estratégia para utilização de transação dos adaptadores.
  */
 abstract class StandardTransactionStrategy implements TransactionStrategy
 {
-
-    /**
-     * @var string
-     */
-    private $name;
+    // A estratégica transacional é um objeto do qual se pode obter seu nome.
+    use TNameable {
+        setName as protected;
+    }
 
     /**
      * @var \Commons\Pattern\Plugin\Pluggable
@@ -28,17 +28,8 @@ abstract class StandardTransactionStrategy implements TransactionStrategy
      */
     public function __construct($name = null, $feature = null)
     {
-        $this->name = $name;
+        $this->setName($name);
         $this->feature = $feature;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \Commons\Pattern\Transaction\Strategy\TransactionStrategy::getName()
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

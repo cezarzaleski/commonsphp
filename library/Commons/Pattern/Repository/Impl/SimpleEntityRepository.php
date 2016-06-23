@@ -4,11 +4,13 @@ namespace Commons\Pattern\Repository\Impl;
 
 use Commons\Pattern\Repository\Repository;
 use Doctrine\ORM\EntityRepository;
+use Commons\Pattern\Paginator\Impl\EntityPaginator;
+use Commons\Pattern\Paginator\PaginatorAware;
 
 /**
  * Representação básica de um repositório de entidades.
  */
-class SimpleEntityRepository extends EntityRepository implements Repository
+class SimpleEntityRepository extends EntityRepository implements Repository, PaginatorAware
 {
     /**
      * {@inheritDoc}
@@ -22,11 +24,12 @@ class SimpleEntityRepository extends EntityRepository implements Repository
 
         $entityManager = $this->getEntityManager();
         $entityName = $this->getEntityName();
+        $resolvedData = $this->resolveReferences($data);
         if ($id) {
             $entity = $entityManager->getReference($entityName, $id);
-            $entity->fromArray($data);
+            $entity->fromArray($resolvedData);
         } else {
-            $entity = new $entityName($data);
+            $entity = new $entityName($resolvedData);
         }
 
         // Pré
@@ -37,6 +40,7 @@ class SimpleEntityRepository extends EntityRepository implements Repository
         }
 
         $entityManager->persist($entity);
+        // verificar esses dois métodos para realizar apenas para a entidade
         $entityManager->flush();
         $entityManager->clear();
 
@@ -49,6 +53,40 @@ class SimpleEntityRepository extends EntityRepository implements Repository
 
         return $entity;
     }
+
+    /**
+     * Resolve as referências no array de dados.
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function resolveReferences(array $data)
+    {
+        $resolvedData = array();
+
+        foreach ($data as $key => $value) {
+            $resolvedValue = $value;
+            if ($value instanceof Reference) {
+                switch ($value->getType()) {
+                    case Reference::PARTIAL:
+                        $resolvedValue = $this->getEntityManager()
+                                              ->getPartialReference($value->getName(), $value->getId());
+                        break;
+                    case Reference::FULL:
+                        $resolvedValue = $this->getEntityManager()
+                                              ->getReference($value->getName(), $value->getId());
+                        break;
+                    default:
+                        $resolvedValue = $value;
+                        break;
+                }
+            }
+            $resolvedData[$key] = $resolvedValue;
+        }
+
+        return $resolvedData;
+    }
+
     // ---- INSERT -----------------------------------------------------------------------------------------------------
 
     /**
@@ -93,6 +131,7 @@ class SimpleEntityRepository extends EntityRepository implements Repository
             $this->preDelete($reference);
 
             $this->getEntityManager()->remove($reference);
+            // verificar o flush para realizar apenas para a entidade
             $this->getEntityManager()->flush();
 
             $this->postDelete($reference);
@@ -111,5 +150,14 @@ class SimpleEntityRepository extends EntityRepository implements Repository
      */
     protected function postDelete($reference)
     {
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Commons\Pattern\Paginator\PaginatorAware::createPaginator()
+     */
+    public function createPaginator()
+    {
+        return new EntityPaginator($this);
     }
 }

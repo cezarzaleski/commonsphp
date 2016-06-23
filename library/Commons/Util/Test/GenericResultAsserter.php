@@ -7,16 +7,16 @@ use Commons\Exception\InvalidArgumentException;
 class GenericResultAsserter implements ResultAsserter
 {
 
-    private $callable;
+    private $callableAsserter;
 
     public function __construct($callable)
     {
-        $this->callable = $callable;
+        $this->callableAsserter = $callable;
     }
 
     public function assertResult($testCase, $object, $result)
     {
-        $call = $this->callable;
+        $call = $this->callableAsserter;
         if (!$call) {
             throw new InvalidArgumentException('Undefined callback for ResultAsserter.');
         }
