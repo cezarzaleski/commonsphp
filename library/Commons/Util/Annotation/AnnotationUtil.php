@@ -68,6 +68,16 @@ class AnnotationUtil
     }
 
     /**
+     * Carrega o loader no registro de anotações.
+     *
+     * @param callable $callable
+     */
+    public static function registerLoader($callable)
+    {
+        AnnotationRegistry::registerLoader($callable);
+    }
+
+    /**
      * Carrega anotações a serem utilizadas no projeto através de seus namespaces e diretórios de residencia.
      *
      * @param string $namespace

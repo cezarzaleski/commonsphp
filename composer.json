@@ -23,14 +23,15 @@
         "bin/ReverseTestCaseGenerator"
     ],
     "require" : {
-        "php": ">=5.5.0",
+        "php": ">=5.6",
         "zendframework/zend-code": "2.*",
         "psr/log" : "~1",
-        "psr/cache" : "~1"
+        "psr/cache" : "~1",
+        "psr/http-message" : "~1"
     },
     "suggest": {
-        "doctrine/orm": "Na versao[>=2.4.2], obrigatoria para utilizar a classe Commons/Pattern/Transaction/Strategy/EntityManagerTransactionStrategy e a classe de serializacao Commons/Util/Serializer/EntitySerializer.",
-        "doctrine/common": "Na versao[>=2.5.1], obrigatoria para utilização de anotações.",
+        "doctrine/orm": "Na versao[^2.4.2], obrigatoria para utilizar a classe Commons/Pattern/Transaction/Strategy/EntityManagerTransactionStrategy e a classe de serializacao Commons/Util/Serializer/EntitySerializer.",
+        "doctrine/common": "Na versao[^2.5.1], obrigatoria para utilização de anotações.",
         "zendframework/zend-di": "Na versao[2.*], obrigatoria para utilizar a classe Commons/Pattern/Di/ZendLookupManager.",
         "zendframework/zend-cache": "Na versao[2.*], obrigatoria para utilizar a classe Commons/Pattern/Cache/CacheZendAdapter.",
         "zendframework/zend-db": "Na versao[2.*], obrigatoria para utilizar os pacotes Commons/Pattern/Db e Commons/Pattern/Transaction.",
@@ -39,7 +40,10 @@
         "zendframework/zend-validator": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Country/Brazil/Validator.",
         "zendframework/zend-serializer": "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Util/Serializer.",
         "zendframework/zend-hydrator" : "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Pattern/Data/Impl.",
-        "zendframework/zend-paginator" : "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Pattern/Paginator/Impl."
+        "zendframework/zend-paginator" : "Na versao[2.*], obrigatoria para utilizar o pacote Commons/Pattern/Paginator/Impl.",
+        "zendframework/zend-psr7bridge" : "Na versao[^0.2.2], caso necessite converter o request Zend para PSR",
+        "zendframework/zend-diactoros" : "Na versao[^1], caso necessite usar zend-psr7bridge.",
+        "symfony/validator": "Na versao[^3], obrigatoria para utilizar o pacote Commons/Pattern/Validator/Impl."
     },
     "require-dev" : {
         "mec/qualityphp": "^1",
@@ -53,8 +57,9 @@
         "zendframework/zend-hydrator" : "2.*",
         "zendframework/zend-log" : "2.*",
         "zendframework/zend-paginator" : "2.*",
-        "doctrine/orm": ">=2.4.2",
-        "doctrine/common": ">=2.5.1"
+        "doctrine/orm": "^2.4.2",
+        "doctrine/common": "^2.5.1",
+        "symfony/validator" : "^3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

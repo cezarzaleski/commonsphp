@@ -4,6 +4,7 @@ namespace CommonsTest\Pattern\Service\Mock;
 
 use Commons\Pattern\Entity\Impl\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Mock\ExemploEntity
@@ -24,6 +25,10 @@ class ExemploEntity extends AbstractEntity
 
     /**
      * @var string $name
+     *
+     * @Assert\NotNull()
+     * @Assert\Length(min=2, max=50, minMessage="At least 2 letters", maxMessage="Cannot exceed 50 letters and spaces")
+     * @Assert\Regex(pattern="/\d/", match=false, message="Must not contain numbers")
      *
      * @ORM\Column(name="NAME", type="string", length=50, nullable=false)
      */

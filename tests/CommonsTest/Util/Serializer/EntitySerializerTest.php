@@ -9,6 +9,7 @@ use Doctrine\ORM\Tools\Setup;
 use Commons\Util\Serializer\EntitySerializer;
 use CommonsTest\Pattern\Service\Mock\ExemploEntity;
 use Doctrine\ORM\Tools\SchemaTool;
+use Commons\Util\Annotation\AnnotationUtil;
 
 /**
  * Classe EntitySerializerTest.

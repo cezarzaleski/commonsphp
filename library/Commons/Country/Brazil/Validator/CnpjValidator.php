@@ -2,7 +2,9 @@
 
 namespace Commons\Country\Brazil\Validator;
 
-class CnpjValidator extends \Zend\Validator\AbstractValidator
+use Commons\Pattern\Validator\Validatable;
+
+class CnpjValidator extends \Zend\Validator\AbstractValidator implements Validatable
 {
     const INVALID = "CNPJInvalido.";
 

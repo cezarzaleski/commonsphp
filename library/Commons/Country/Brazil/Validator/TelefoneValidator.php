@@ -2,6 +2,8 @@
 
 namespace Commons\Country\Brazil\Validator;
 
+use Commons\Pattern\Validator\Validatable;
+
 /**
  * Validador de telefones.
  * Baseado nas normas:
@@ -68,7 +70,7 @@ namespace Commons\Country\Brazil\Validator;
  *
  * @since 2014-12-17
  */
-class TelefoneValidator extends \Zend\Validator\AbstractValidator
+class TelefoneValidator extends \Zend\Validator\AbstractValidator implements Validatable
 {
     const TELEFONE_INVALID = 'telefoneInvalido';
     const CELULAR_INVALID = 'celularInvalido';

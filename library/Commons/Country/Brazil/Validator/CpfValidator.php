@@ -2,7 +2,9 @@
 
 namespace Commons\Country\Brazil\Validator;
 
-class CpfValidator extends \Zend\Validator\AbstractValidator
+use Commons\Pattern\Validator\Validatable;
+
+class CpfValidator extends \Zend\Validator\AbstractValidator  implements Validatable
 {
     const INVALID = 'CPFInvalido';
 
