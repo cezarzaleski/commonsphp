@@ -1,5 +1,5 @@
 {
-    "name" : "mec/corporativo-commonsphp",
+    "name" : "library/commonsphp",
     "description" : "Biblioteca com utilitários comuns e padrões.",
     "type": "library",
     "keywords": [
@@ -11,14 +11,6 @@
     "config":{
         "secure-http": false
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://composer.mec.gov.br"
-        }, {
-            "packagist": false
-        }
-    ],
     "bin": [
         "bin/ReverseTestCaseGenerator"
     ],
@@ -46,7 +38,6 @@
         "symfony/validator": "Na versao[^3], obrigatoria para utilizar o pacote Commons/Pattern/Validator/Impl."
     },
     "require-dev" : {
-        "mec/qualityphp": "^1",
         "zendframework/zend-inputfilter": "2.*",
         "zendframework/zend-serializer": "2.*",
         "zendframework/zend-db": "2.*",
